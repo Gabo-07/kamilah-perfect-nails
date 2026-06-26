@@ -59,9 +59,34 @@ kamilah-perfect-nails/
 - [ ] Crear la estructura base de carpetas (Frontend y Backend).
 
 ### FASE 2: El Cerebro (Backend MVP)
-- [ ] Conectar FastAPI con una base de datos local o de prueba.
-- [ ] Crear los modelos (tablas) en SQLAlchemy usando la estructura que acordamos.
-- [ ] Crear los CRUD básicos (Crear cliente, Ver servicios).
+- [ ] Configurar conexión a la base de datos (usaremos SQLite para pruebas locales por rapidez, y luego PostgreSQL para producción).
+- [ ] Crear la estructura de carpetas en `backend/` (`models`, `schemas`, `routers`, `core`).
+- [ ] Crear los modelos (tablas) en SQLAlchemy para el Núcleo Humano (`Usuario`, `Empleado`, `Cliente`).
+- [ ] Crear los modelos para el Catálogo (`Categoria`, `Servicio`).
+- [ ] Crear los modelos para las Citas y Detalles (`Cita`, `DetalleCita`).
+- [ ] Crear los CRUD básicos y las rutas de la API en FastAPI.
+
+**Estructura de Archivos del Backend que crearemos:**
+```text
+backend/
+├── main.py                # Punto de entrada de FastAPI
+├── database.py            # Configuración de SQLAlchemy y la BD
+├── models/
+│   ├── __init__.py
+│   ├── base.py            # Base de SQLAlchemy
+│   ├── human.py           # Usuarios, Empleados, Clientes
+│   ├── catalog.py         # Categorias, Servicios
+│   └── operations.py      # Citas, Detalles, Pagos
+├── schemas/               # Pydantic models (para validar datos de entrada/salida)
+│   ├── __init__.py
+│   ├── human.py
+│   ├── catalog.py
+│   └── operations.py
+└── routers/               # Rutas de la API (Endpoints)
+    ├── __init__.py
+    ├── clients.py
+    └── services.py
+```
 
 ### FASE 3: La Cara (Frontend MVP)
 - [ ] Instalar React y configurar Tailwind.

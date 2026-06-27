@@ -3,11 +3,12 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models.human import Cliente
 from schemas.human import ClienteCreate, ClienteResponse
+from core.deps import get_usuario_actual
 
 router = APIRouter(prefix="/api/clientes", tags=["Clientes"])
 
 @router.post("/", response_model=ClienteResponse)
-def crear_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
+def crear_cliente(cliente: ClienteCreate, db: Session = Depends(get_db), usuario_actual = Depends(get_usuario_actual)):
     # Convertimos los datos del schema al modelo de BD
     nuevo_cliente = Cliente(**cliente.dict())
     db.add(nuevo_cliente)
@@ -16,5 +17,5 @@ def crear_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     return nuevo_cliente
 
 @router.get("/", response_model=list[ClienteResponse])
-def listar_clientes(db: Session = Depends(get_db)):
+def listar_clientes(skip: int = 0, limit: int = 100,db: Session = Depends(get_db), usuario_actual = Depends(get_usuario_actual)):
     return db.query(Cliente).all()

@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
 from models.human import Cliente, Usuario, Empleado
 from routers import clients
+from routers import auth
 
 # Aquí inicializamos FastAPI
 app = FastAPI(
@@ -25,6 +26,7 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 app.include_router(clients.router)
+app.include_router(auth.router)
 
 @app.get("/")
 def read_root():
